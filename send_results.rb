@@ -10,7 +10,9 @@ url = ENV['RESPONSE_QUEUE_URL']
 
 
 ARGV.each { |file_name|
-  if !File.zero?(file_name)
+  if File.zero?(file_name)
+    sqs.queues[url].send_message("NOOP")
+  else
     file = File.open(file_name, 'r')
     sqs.queues[url].send_message(file.read)
     file.close

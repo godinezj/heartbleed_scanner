@@ -12,9 +12,10 @@ nmap -n -PN -p443 -sT --randomize-hosts -oG scan-results.txt -T5 \
 
 # parse the results
 grep -v \# scan-results.txt | grep open/tcp |cut -f2 -d\  > live-hosts.txt
+echo "Finished initial portscan"
 
 # queue up the jobs and retrieve results
-ruby add_jobs.rb live-hosts.txt
-ruby get_results.rb > results.txt
+echo "Queueing up the jobs and retrieving results, please wait..."
+ruby add_jobs.rb live-hosts.txt > results.txt
 
 rm -f running.lock
