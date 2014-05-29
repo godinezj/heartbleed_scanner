@@ -38,8 +38,9 @@ class MsfScanner
     @con.run_single("use auxiliary/#{scanner.refname}")
   end
   def scan(hosts)
-    puts "Scanning..."
-    args=["RHOSTS=#{hosts.join(' ')}", "RPORT=443", "THREADS=10"]
+    rhosts = hosts.join(' ')
+    puts "Scanning: "+rhosts
+    args=["RHOSTS=#{rhosts}", "RPORT=443", "THREADS=10"]
     args.each {|arg|
           k,v = arg.split("=", 2)
           @con.run_single("set #{k} #{v}")
