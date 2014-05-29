@@ -10,6 +10,7 @@ url = ENV['REQUEST_QUEUE_URL']
 
 if sqs.queues[url].visible_messages == 0
   sleep 60
+  exit!
 end
 
 sqs.queues[url].receive_message() { |msg|
