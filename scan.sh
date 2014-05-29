@@ -2,6 +2,9 @@
 
 # make sure only one job runs at the time
 touch running.lock
+date  >> results-history.log
+cat results.txt >> results-history.log
+rm results.txt
 
 # scan the ranges or ip addresses in all-ranges.txt
 nmap -n -PN -p443 -sT --randomize-hosts -oG scan-results.txt -T5 \
