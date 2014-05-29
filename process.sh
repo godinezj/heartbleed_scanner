@@ -1,5 +1,13 @@
 #!/bin/bash
 
-cd /home/ec2-user/heartbleed_scanner
-git pull
-ruby process_job.rb
+function do_work {
+  ruby get_job.rb > input.txt
+  ruby msf_scanner.rb input.txt > output.txt
+  grep "[+]" output.txt > results.txt
+  ruby send_results.rb results.txt
+  rm results.txt output.txt input.txt
+}
+
+while true; do 
+  do_work
+done

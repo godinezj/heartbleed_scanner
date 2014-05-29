@@ -3,6 +3,7 @@ msfbase = '../metasploit-framework'
 $:.unshift(File.expand_path("#{msfbase}/lib"))
 $:.unshift(File.expand_path("#{msfbase}/trunk/lib"))
 
+require 'rubygems'
 require 'fastlib'
 require 'msfenv'
 
@@ -36,9 +37,9 @@ class MsfScanner
     )
     @con.run_single("use auxiliary/#{scanner.refname}")
   end
-  def scan(host)
-    puts "Scanning "+host
-    args=["RHOSTS=#{host}", "RPORT=443", "SSL=true"]
+  def scan(hosts)
+    puts "Scanning..."
+    args=["RHOSTS=#{hosts.join(' ')}", "RPORT=443", "THREADS=10"]
     args.each {|arg|
           k,v = arg.split("=", 2)
           @con.run_single("set #{k} #{v}")
@@ -49,6 +50,10 @@ end
 
 if __FILE__ == $0
   scanner = MsfScanner.new()
-  scanner.scan('127.0.0.1')
+  ARGV.each { |file_name|
+    file = File.open(file_name, 'r')
+    scanner.scan(file.readlines)
+    file.close
+  }
 end
 
