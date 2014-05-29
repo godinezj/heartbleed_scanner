@@ -1,5 +1,5 @@
 require 'rex/ui'
-require 'output.rb'
+require './output.rb'
 
 
 begin
