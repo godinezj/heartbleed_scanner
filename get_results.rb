@@ -13,15 +13,15 @@ req_q = sqs.queues[req_url]
 
 while req_q.visible_messages > 0 || res_q.visible_messages > 0 do
   #puts "Request queue has #{req_q.visible_messages} messages, Response queue has #{res_q.visible_messages} messages"
-  res_q.receive_message(:wait_time_seconds => 20) { |msg|
+  res_q.receive_message() { |msg|
     puts msg.body
   }
-  sleep 60
+  sleep 30
 end
 
-sleep 120
+sleep 30
 if req_q.visible_messages > 0
-  res_q.receive_message(:wait_time_seconds => 20) { |msg|
+  res_q.receive_message() { |msg|
     puts msg.body
   }
 end
