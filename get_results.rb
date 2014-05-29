@@ -11,9 +11,8 @@ req_url = ENV['REQUEST_QUEUE_URL']
 res_q = sqs.queues[res_url]
 req_q = sqs.queues[req_url]
 
-puts "Request queue has #{req_q.visible_messages} messages, Response queue has #{res_q.visible_messages} messages"
 while req_q.visible_messages > 0 || res_q.visible_messages > 0 do
-  puts "Request queue has #{req_q.visible_messages} messages, Response queue has #{res_q.visible_messages} messages"
+  #puts "Request queue has #{req_q.visible_messages} messages, Response queue has #{res_q.visible_messages} messages"
   res_q.receive_message(:wait_time_seconds => 20) { |msg|
     puts msg.body
   }
