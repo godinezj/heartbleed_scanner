@@ -16,10 +16,10 @@ while req_q.visible_messages > 0 || res_q.visible_messages > 0 do
   res_q.receive_message() { |msg|
     puts msg.body
   }
-  sleep 30
+  sleep 60
 end
 
-sleep 30
+sleep 60
 if req_q.visible_messages > 0
   res_q.receive_message() { |msg|
     puts msg.body
