@@ -29,6 +29,7 @@ res_q.poll() { |msg|
   jobs-=1
 
   if jobs == 0
+    msg.delete
     break
   end
 }
