@@ -11,7 +11,7 @@ nmap -n -PN -p443 -sT --randomize-hosts -oG scan-results.txt -T5 \
   --open -iL all-ranges.txt --excludefile exclude-hosts.txt
 
 # parse the results
-grep -v \# scan-results.txt | grep open/tcp |cut -f2 -d\  > live-hosts.txt
+grep -v \# scan-results.txt|grep open/tcp|cut -f2 -d\  |sort|uniq > live-hosts.txt
 echo "Finished initial portscan"
 
 # queue up the jobs and retrieve results
